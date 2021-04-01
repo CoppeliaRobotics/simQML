@@ -1,0 +1,20 @@
+All the files in each directory are licensed under the terms of the
+license text contained at the beginning of the same file, or if not
+present, under the terms of the license file (license, license.txt,
+copying, etc.) contained in the same directory if it is present, or
+under the same terms of the files in the parent directory otherwise.
+
+-----------------------------------------------------------------------
+simExtQML
+
+Copyright (C) 2021 Coppelia Robotics AG / Marc Freese
+
+All rights reserved.
+
+Licensed under the terms of GPL 3
+
+https://www.gnu.org/licenses/gpl-3.0.txt
+
+-----------------------------------------------------------------------
+
+The QML plugin is courtesy of Federico Ferri.

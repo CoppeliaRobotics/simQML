@@ -1,0 +1,74 @@
+cmake_minimum_required(VERSION 3.5)
+project(simExtQML)
+
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_MACOSX_RPATH 1)
+
+find_package(Boost REQUIRED)
+find_package(Qt5Core REQUIRED)
+find_package(Qt5Gui REQUIRED)
+find_package(Qt5Widgets REQUIRED)
+find_package(Qt5PrintSupport REQUIRED)
+find_package(Qt5Qml REQUIRED)
+find_package(Qt5Quick REQUIRED)
+find_package(Qt5QuickWidgets REQUIRED)
+find_package(Qt5QuickControls2 REQUIRED)
+find_package(Qt5Quick3D REQUIRED)
+
+if(NOT LIBPLUGIN_DIR)
+    if(DEFINED ENV{COPPELIASIM_ROOT_DIR})
+        set(LIBPLUGIN_DIR $ENV{COPPELIASIM_ROOT_DIR}/programming/libPlugin)
+    else()
+        set(LIBPLUGIN_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../libPlugin)
+    endif()
+endif()
+list(APPEND CMAKE_MODULE_PATH
+    ${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules
+    ${LIBPLUGIN_DIR}/cmake)
+find_package(CoppeliaSim 4.1.0.0 REQUIRED)
+
+find_package(Git QUIET)
+if(GIT_FOUND AND EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/.git")
+    option(GIT_SUBMODULE "Check submodules during build" ON)
+    if(GIT_SUBMODULE)
+        message(STATUS "Submodule update")
+        execute_process(COMMAND ${GIT_EXECUTABLE} submodule update --init --recursive
+                        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+                        RESULT_VARIABLE GIT_SUBMOD_RESULT)
+        if(NOT GIT_SUBMOD_RESULT EQUAL "0")
+            message(FATAL_ERROR "git submodule update --init failed with ${GIT_SUBMOD_RESULT}, please checkout submodules")
+        endif()
+    endif()
+endif()
+
+include_directories(${CMAKE_CURRENT_BINARY_DIR}/generated)
+
+coppeliasim_generate_stubs(${CMAKE_CURRENT_BINARY_DIR}/generated XML_FILE ${CMAKE_CURRENT_SOURCE_DIR}/callbacks.xml LUA_FILE ${CMAKE_CURRENT_SOURCE_DIR}/simQML.lua)
+
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/config.h.in ${CMAKE_CURRENT_BINARY_DIR}/config.h)
+
+set(SOURCES
+    UI.cpp
+    SIM.cpp
+    Bridge.cpp
+    Geometry.cpp
+    plugin.cpp
+)
+
+set(LIBRARIES
+    Boost::boost
+    Qt5::Core
+    Qt5::Gui
+    Qt5::Widgets
+    Qt5::PrintSupport
+    Qt5::Qml
+    Qt5::Quick
+    Qt5::QuickWidgets
+    #Qt5::QuickControls2
+    Qt5::Quick3D
+)
+
+coppeliasim_add_plugin(simExtQML SOURCES ${SOURCES})
+target_link_libraries(simExtQML ${LIBRARIES})
+coppeliasim_add_plugin_directory(qml)

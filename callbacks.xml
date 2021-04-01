@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<?xml-stylesheet type="text/xsl" href="callbacks.xsl"?>
+
+<plugin name="QML" author="federico.ferri.it@gmail.com">
+    <description>API functions for creating QML user interfaces. More info about creating user interfaces in QML can be found at <a href="https://doc.qt.io/qt-5/qtquick-index.html">https://doc.qt.io/</a>.</description>
+    <command name="createEngine">
+        <description>Create a QML engine.</description>
+        <params>
+        </params>
+        <return>
+            <param name="handle" type="string">
+                <description>qml engine handle</description>
+            </param>
+        </return>
+    </command>
+    <command name="destroyEngine">
+        <description>Destroy the specified QML engine.</description>
+        <params>
+            <param name="handle" type="string">
+                <description>qml engine handle</description>
+            </param>
+        </params>
+        <return>
+        </return>
+    </command>
+    <command name="load">
+        <description>Load a QML file in the specified engine.</description>
+        <params>
+            <param name="engineHandle" type="string">
+                <description>qml engine handle</description>
+            </param>
+            <param name="filename" type="string">
+                <description>qml file path</description>
+            </param>
+        </params>
+        <return>
+        </return>
+    </command>
+    <command name="loadData">
+        <description>Load a QML from a string in the specified engine.</description>
+        <categories>
+            <category name="ui" />
+        </categories>
+        <see-also>
+        </see-also>
+        <params>
+            <param name="engineHandle" type="string">
+                <description>qml engine handle</description>
+            </param>
+            <param name="data" type="string">
+                <description>qml data</description>
+            </param>
+            <param name="basepath" type="string" default='""'>
+                <description>base path for imports</description>
+            </param>
+        </params>
+        <return>
+        </return>
+    </command>
+    <command name="setEventHandlerRaw">
+        <description>Set the event handler to receive events from QML. In order to send events in QML, a <code display="inline">CoppeliaSimBridge</code> object must be created, and its <code display="inline">sendEvent(name, data)</code> method must be called.<br/><br/>For information about receiving events in QML, see <command-ref name="sendEvent" />.</description>
+        <params>
+            <param name="engineHandle" type="string">
+                <description>qml engine handle</description>
+            </param>
+            <param name="functionName" type="string">
+                <description>function name to be called when event is received: see <script-function-ref name="onEventReceived" /></description>
+            </param>
+        </params>
+        <return>
+        </return>
+    </command>
+    <command name="sendEventRaw">
+        <description>Send an event to QML. In order to receive events in QML, a <code display="inline">CoppeliaSimBridge</code> object must be created, and its <code display="inline">onEventReceived(name, data)</code> handler must be implemented.<br/><br/><strong>Predefined events sent by the plugin:</strong> when the scene is switched, an event with name <code display="inline">"onInstanceSwitch"</code> and data consisting of a single boolean JSON-serialized value, which will be <code display="inline">true</code> when the QML component's scene becomes active, and <code display="inline">false</code> when it becomes inactive.</description>
+        <params>
+            <param name="engineHandle" type="string">
+                <description>qml engine handle</description>
+            </param>
+            <param name="eventName" type="string">
+                <description>event name</description>
+            </param>
+            <param name="eventData" type="string">
+                <description>event data</description>
+            </param>
+        </params>
+        <return>
+        </return>
+    </command>
+    <command name="imageDataURL">
+        <description>Encode image data according to "data" URL scheme (RFC 2397).</description>
+        <params>
+            <param name="data" type="string">
+                <description>raw image data</description>
+            </param>
+            <param name="width" type="int">
+                <description>image width</description>
+            </param>
+            <param name="height" type="int">
+                <description>image height</description>
+            </param>
+            <param name="format" type="string" default='"BMP"'>
+                <description>encoding format (must be "PNG", "JPG" or "BMP")</description>
+            </param>
+            <param name="data_format" type="int" default="sim_qml_image_data_format_rgb888">
+                <description>image data format (see <enum-ref name="image_data_format" />)</description>
+            </param>
+        </params>
+        <return>
+            <param name="dataURL" type="string">
+                <description>data URL</description>
+            </param>
+        </return>
+    </command>
+    <script-function name="onEventReceivedRaw">
+        <description>Callback for events sent from QML. The event handler must be registered with <command-ref name="setEventHandlerRaw" />.</description>
+        <params>
+            <param name="engineHandle" type="string">
+                <description>qml engine handle</description>
+            </param>
+            <param name="eventName" type="string">
+                <description>event name</description>
+            </param>
+            <param name="eventData" type="string">
+                <description>event data</description>
+            </param>
+        </params>
+        <return>
+        </return>
+    </script-function>
+    <enum name="image_data_format" item-prefix="image_data_format_" base="66389">
+        <item name="gray8" />
+        <item name="rgb888" />
+        <item name="bgr888" />
+        <item name="rgbx8888" />
+        <item name="rgb32" />
+        <item name="argb32" />
+    </enum>
+</plugin>
