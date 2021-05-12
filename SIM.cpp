@@ -22,8 +22,10 @@ SIM::SIM(QObject *parent)
     connect(this, &SIM::load, ui, &UI::onLoad, Qt::BlockingQueuedConnection);
     connect(this, &SIM::loadData, ui, &UI::onLoadData, Qt::BlockingQueuedConnection);
 
+#ifdef Qt5_Quick3D_FOUND
     connect(ui, &UI::getMeshData, this, &SIM::onGetMeshData);
     connect(this, &SIM::updateMeshData, ui, &UI::onSetMeshData);
+#endif // Qt5_Quick3D_FOUND
 }
 
 SIM::~SIM()
@@ -83,6 +85,7 @@ void SIM::onEventFromQML(QQmlApplicationEngine *engine, QString name, QByteArray
     onEventReceivedRaw(scriptID, functionName.c_str(), &in, &out);
 }
 
+#ifdef Qt5_Quick3D_FOUND
 void SIM::onGetMeshData(int shapeHandle, Geometry *geom)
 {
     simFloat *verticesBuf;
@@ -100,3 +103,4 @@ void SIM::onGetMeshData(int shapeHandle, Geometry *geom)
         emit updateMeshData(geom, vertexData, indexData);
     }
 }
+#endif // Qt5_Quick3D_FOUND

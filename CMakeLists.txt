@@ -6,7 +6,7 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_MACOSX_RPATH 1)
 
 find_package(Boost REQUIRED)
-find_package(Qt5 COMPONENTS Core Gui Widgets PrintSupport Qml Quick QuickWidgets QuickControls2 Quick3D REQUIRED)
+find_package(Qt5 COMPONENTS Core Gui Widgets PrintSupport Qml Quick QuickWidgets QuickControls2 OPTIONAL_COMPONENTS Quick3D REQUIRED)
 
 if(NOT LIBPLUGIN_DIR)
     if(DEFINED ENV{COPPELIASIM_ROOT_DIR})
@@ -44,7 +44,6 @@ set(SOURCES
     UI.cpp
     SIM.cpp
     Bridge.cpp
-    Geometry.cpp
     plugin.cpp
 )
 
@@ -58,9 +57,16 @@ set(LIBRARIES
     Qt5::Quick
     Qt5::QuickWidgets
     #Qt5::QuickControls2
-    Qt5::Quick3D
 )
 
+if(Qt5_Quick3D_FOUND)
+    list(APPEND SOURCES Geometry.cpp)
+    list(APPEND LIBRARIES Qt5::Quick3D)
+endif()
+
 coppeliasim_add_plugin(simExtQML SOURCES ${SOURCES})
+if(Qt5_Quick3D_FOUND)
+    target_compile_options(simExtQML PRIVATE Qt5_Quick3D_FOUND)
+endif()
 target_link_libraries(simExtQML ${LIBRARIES})
 coppeliasim_add_plugin_directory(qml)

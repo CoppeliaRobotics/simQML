@@ -131,7 +131,9 @@ void UI::onLoadData(QQmlApplicationEngine *engine, QByteArray data, QString base
     engine->setProperty("contextInfo", QVariant());
 }
 
+#ifdef Qt5_Quick3D_FOUND
 void UI::onSetMeshData(Geometry *geom, QByteArray vertexData, QByteArray indexData)
 {
     geom->setMeshData(vertexData, indexData);
 }
+#endif // Qt5_Quick3D_FOUND
