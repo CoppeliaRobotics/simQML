@@ -6,7 +6,10 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_MACOSX_RPATH 1)
 
 find_package(Boost REQUIRED)
-find_package(Qt5 COMPONENTS Core Gui Widgets PrintSupport Qml Quick QuickWidgets QuickControls2 OPTIONAL_COMPONENTS Quick3D REQUIRED)
+find_package(Qt5 COMPONENTS Core Gui Widgets PrintSupport Qml Quick QuickWidgets QuickControls2 REQUIRED)
+if(Qt5_VERSION VERSION_GREATER_EQUAL 5.15)
+    find_package(Qt5 COMPONENTS Quick3D REQUIRED)
+endif()
 
 if(NOT LIBPLUGIN_DIR)
     if(DEFINED ENV{COPPELIASIM_ROOT_DIR})
