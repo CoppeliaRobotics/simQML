@@ -13,7 +13,7 @@ end
 
 --@fun setEventHandler registers the event handler for the engine, which will deserialize JSON payloads
 --@arg string engine the handle of the QML engine
---@arg string funcName the name of the function, called swith args (engineHandle,eventName,eventData)
+--@arg string funcName the name of the function, called with args (engineHandle,eventName,eventData)
 function simQML.setEventHandler(engine,funcName)
     local func=simQML.resolveHandlerFunction(funcName)
     local wrappedFuncName,i=nil,0
