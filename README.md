@@ -49,7 +49,7 @@ Example:
 
 ```
 simQML.loadData(engine,[[
-    import QtQuick 2.15
+    import QtQuick 2.12
     import CoppeliaSimPlugin 1.0
 
     PluginWindow {
@@ -79,7 +79,8 @@ end
 engine=simQML.createEngine()
 simQML.setEventHandler(engine,'myEventHandler')
 simQML.loadData(engine,[[
-    import QtQuick 2.15
+    import QtQuick 2.12
+    import QtQuick.Controls 2.12
     import CoppeliaSimPlugin 1.0
 
     PluginWindow {
@@ -108,7 +109,7 @@ For convenience, if using the `PluginWindow` component, that handler is already 
 ```
 engine=simQML.createEngine()
 simQML.loadData(engine,[[
-    import QtQuick 2.15
+    import QtQuick 2.12
     import CoppeliaSimPlugin 1.0
 
     PluginWindow {
