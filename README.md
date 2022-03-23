@@ -131,3 +131,8 @@ simQML.sendEvent(engine,'myEvent',{someData=42})
 An `onInstanceSwitch` event with bool argument is sent each time the scene owning the engine becomes active/inactive.
 
 The `PluginWindow` component already implements the handler for this event, setting the `visible` property of the `Window`. Set the `sticky` property to `true` to override this behavior.
+
+### QML References
+
+- [The QML Book](https://www.qt.io/product/qt6/qml-book)
+- [QML Coding (style) guide](https://github.com/Furkanzmc/QML-Coding-Guide)
