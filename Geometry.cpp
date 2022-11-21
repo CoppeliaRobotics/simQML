@@ -37,16 +37,20 @@ void Geometry::setMeshData(QByteArray vertexData, QByteArray indexData)
 {
     clear();
     setPrimitiveType(PrimitiveType::Triangles);
+#if sizeof(floatDouble)==4
     addAttribute(Attribute::PositionSemantic, 0, Attribute::F32Type);
     addAttribute(Attribute::IndexSemantic, 0, Attribute::U32Type);
     addAttribute(Attribute::NormalSemantic, 0, Attribute::F32Type);
+#else
+#error FIXME
+#endif
     setVertexData(vertexData);
     setIndexData(indexData);
-    setStride(sizeof(float) * 3);
+    setStride(sizeof(floatDouble) * 3);
     QVector3D boundsMin, boundsMax;
-    auto vertices = reinterpret_cast<const float*>(vertexData.constData());
+    auto vertices = reinterpret_cast<const floatDouble*>(vertexData.constData());
     auto indices = reinterpret_cast<const int*>(indexData.constData());
-    for(size_t i = 0; i < vertexData.length() / sizeof(float); i += 3)
+    for(size_t i = 0; i < vertexData.length() / sizeof(floatDouble); i += 3)
     {
         boundsMin.setX(std::min(vertices[i + 0], i == 0 ? vertices[i + 0] : boundsMin.x()));
         boundsMin.setY(std::min(vertices[i + 1], i == 0 ? vertices[i + 1] : boundsMin.y()));
