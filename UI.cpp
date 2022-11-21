@@ -10,7 +10,6 @@
 
 UI *UI::instance = nullptr;
 QWidget *UI::simMainWindow = nullptr;
-float UI::wheelZoomFactor = 1.0;
 
 UI::UI(QObject *parent)
     : QObject(parent)
@@ -30,7 +29,6 @@ UI * UI::getInstance(QObject *parent)
     {
         UI::instance = new UI(parent);
         UI::simMainWindow = (QWidget *)simGetMainWindow(1);
-        simGetFloatParameter(sim_floatparam_mouse_wheel_zoom_factor, &UI::wheelZoomFactor);
         sim::addLog(sim_verbosity_debug, "UI(%x) constructed in thread %s", UI::instance, QThread::currentThreadId());
     }
     return UI::instance;

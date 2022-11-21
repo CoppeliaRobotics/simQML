@@ -27,7 +27,6 @@ private:
 
 public:
     static QWidget *simMainWindow;
-    static float wheelZoomFactor;
 
 signals:
 #ifdef Qt5_Quick3D_FOUND
