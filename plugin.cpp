@@ -1,5 +1,5 @@
 #include "simPlusPlus/Plugin.h"
-#include "simPlusPlus/Handle.h"
+#include "simPlusPlus/Handles.h"
 #include "plugin.h"
 #include "stubs.h"
 #include "config.h"
@@ -11,8 +11,6 @@
 #endif // Qt5_Quick3D_FOUND
 
 #include <QBuffer>
-
-template<> std::string sim::Handle<QQmlApplicationEngine>::tag() { return "QML.QQmlApplicationEngine"; }
 
 class Plugin : public sim::Plugin
 {
@@ -150,7 +148,7 @@ private:
     int oldSceneID = -1;
     UI *ui;
     SIM *sim;
-    sim::Handles<QQmlApplicationEngine> handles;
+    sim::Handles<QQmlApplicationEngine*> handles{"QML.QQmlApplicationEngine"};
     const std::map<std::string, std::string> imageFormats{
         {"PNG", "image/png"},
         {"BMP", "image/bmp"},
