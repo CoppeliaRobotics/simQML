@@ -17,7 +17,7 @@ class Plugin : public sim::Plugin
 public:
     void onStart()
     {
-        if(simGetBooleanParameter(sim_boolparam_headless) > 0)
+        if(simGetBoolParam(sim_boolparam_headless) > 0)
             throw std::runtime_error("doesn't work in headless mode");
 
         if(!registerScriptStuff())
@@ -74,8 +74,8 @@ public:
     void createEngine(createEngine_in *in, createEngine_out *out)
     {
         QStringList importPaths;
-        importPaths << QString::fromStdString(sim::getStringParameter(sim_stringparam_application_path) + "/qml");
-        importPaths << QString::fromStdString(sim::getStringParameter(sim_stringparam_scene_path));
+        importPaths << QString::fromStdString(sim::getStringParam(sim_stringparam_application_path) + "/qml");
+        importPaths << QString::fromStdString(sim::getStringParam(sim_stringparam_scene_path));
         QQmlApplicationEngine *engine;
         sim->createEngine(&engine, importPaths);
         out->handle = handles.add(engine, in->_.scriptID);
