@@ -4,17 +4,23 @@
 
 1. Install required packages for [libPlugin](https://github.com/CoppeliaRobotics/libPlugin): see libPlugin's README
 2. Download and install Qt (same version as CoppeliaSim)
-3. Checkout and compile
-```
-$ git clone --recursive https://github.com/CoppeliaRobotics/simExtQML.git
-$ mkdir simExtQML/build && cd simExtQML/build
-$ cmake ..
+3. Checkout, compile and install into CoppeliaSim:
+```sh
+$ git clone https://github.com/CoppeliaRobotics/simExtQML.git
+$ cd simExtQML
+$ git checkout coppeliasim-v4.5.0-rev0
+$ mkdir -p build && cd build
+$ cmake -DCMAKE_BUILD_TYPE=Release ..
 $ cmake --build .
+$ cmake --install .
 ```
-You may need to set the `CMAKE_PREFIX_PATH` environment variable to the `lib/cmake` subdirectory of your Qt installation, i.e. `/path/to/Qt/Qt5.9.0/5.9/<platform>/lib/cmake`
 
-You may need to run the deploy tool to copy additional Qt dependencies to CoppeliaSim:
-```
+NOTE: replace `coppeliasim-v4.5.0-rev0` with the actual CoppeliaSim version you have.
+
+NOTE: You may need to set the `CMAKE_PREFIX_PATH` environment variable to the `lib/cmake` subdirectory of your Qt installation, i.e. `/path/to/Qt/Qt5.9.0/5.9/<platform>/lib/cmake`
+
+NOTE: You may need to run the deploy tool to copy additional Qt dependencies to CoppeliaSim, e.g.:
+```sh
 macdeployqt $COPPELIASIM_ROOT_DIR/../.. -qmldir=/path/to/simExtQML/qml -always-overwrite -verbose=2
 ```
 
@@ -22,14 +28,14 @@ macdeployqt $COPPELIASIM_ROOT_DIR/../.. -qmldir=/path/to/simExtQML/qml -always-o
 
 In order to load QML components, a QML engine must be created:
 
-```
+```lua
 engine=simQML.createEngine()
 simQML.load(engine,'/path/to/Component.qml')
 ```
 
 When the engine is not needed anymore, it should be destroyed with:
 
-```
+```lua
 simQML.destroyEngine(engine)
 ```
 
@@ -47,7 +53,7 @@ It is possible to use any other component, such as `QtQuick.Window` as the top-l
 
 Example:
 
-```
+```lua
 simQML.loadData(engine,[[
     import QtQuick 2.12
     import CoppeliaSimPlugin 1.0
@@ -71,7 +77,7 @@ QML can call `simBridge.sendEvent(eventName, eventData)` to send an event to Lua
 
 In order to receive the event in Lua, an event handler must be registered with `simQML.setEventHandler`:
 
-```
+```lua
 function myEventHandler(engine,eventName,eventData)
     print('received event',eventName,eventData)
 end
@@ -106,7 +112,7 @@ In order to receive the event in QML, the handler `onEventReceived` of the `Copp
 
 For convenience, if using the `PluginWindow` component, that handler is already implemented, and the event will be dispatched as a call to a function defined in the `PluginWindow` component.
 
-```
+```lua
 engine=simQML.createEngine()
 simQML.loadData(engine,[[
     import QtQuick 2.12
