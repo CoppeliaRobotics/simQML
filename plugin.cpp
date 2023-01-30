@@ -17,7 +17,7 @@ class Plugin : public sim::Plugin
 public:
     void onStart()
     {
-        if(simGetBoolParam(sim_boolparam_headless) > 0)
+        if(sim::getBoolParam(sim_boolparam_headless))
             throw std::runtime_error("doesn't work in headless mode");
 
         if(!registerScriptStuff())
@@ -31,7 +31,7 @@ public:
         Geometry::registerQmlType();
 #endif // Qt5_Quick3D_FOUND
 
-        auto w = nullptr;//reinterpret_cast<QWidget*>(simGetMainWindow(1));
+        auto w = nullptr;//reinterpret_cast<QWidget*>(sim::getMainWindow(1));
         ui = UI::getInstance(w);
     }
 

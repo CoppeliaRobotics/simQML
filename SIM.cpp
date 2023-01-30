@@ -88,17 +88,17 @@ void SIM::onEventFromQML(QQmlApplicationEngine *engine, QString name, QByteArray
 #ifdef Qt5_Quick3D_FOUND
 void SIM::onGetMeshData(int shapeHandle, Geometry *geom)
 {
-    floatDouble *verticesBuf;
+    double *verticesBuf;
     int verticesSize;
     int *indicesBuf;
     int indicesSize;
-    if(-1 != simGetShapeMesh(shapeHandle, &verticesBuf, &verticesSize, &indicesBuf, &indicesSize, nullptr))
+    if(-1 != sim::getShapeMesh(shapeHandle, &verticesBuf, &verticesSize, &indicesBuf, &indicesSize, nullptr))
     {
         QByteArray vertexData((const char*)verticesBuf, verticesSize * sizeof(floatDouble));
-        simReleaseBuffer(reinterpret_cast<const char*>(verticesBuf));
+        sim::releaseBuffer(reinterpret_cast<const char*>(verticesBuf));
 
         QByteArray indexData((const char*)indicesBuf, indicesSize * sizeof(int));
-        simReleaseBuffer(reinterpret_cast<const char*>(indicesBuf));
+        sim::releaseBuffer(reinterpret_cast<const char*>(indicesBuf));
 
         emit updateMeshData(geom, vertexData, indexData);
     }

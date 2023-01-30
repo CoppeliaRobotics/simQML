@@ -28,7 +28,7 @@ UI * UI::getInstance(QObject *parent)
     if(!UI::instance)
     {
         UI::instance = new UI(parent);
-        UI::simMainWindow = (QWidget *)simGetMainWindow(1);
+        UI::simMainWindow = (QWidget *)sim::getMainWindow(1);
         sim::addLog(sim_verbosity_debug, "UI(%x) constructed in thread %s", UI::instance, QThread::currentThreadId());
     }
     return UI::instance;
