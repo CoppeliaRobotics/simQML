@@ -7,7 +7,7 @@ under the same terms of the files in the parent directory otherwise.
 -----------------------------------------------------------------------
 simExtQML
 
-Copyright (C) 2021 Coppelia Robotics AG / Marc Freese
+Copyright (C) 2023 Coppelia Robotics AG
 
 All rights reserved.
 
