@@ -74,7 +74,7 @@ public:
     void createEngine(createEngine_in *in, createEngine_out *out)
     {
         QStringList importPaths;
-        importPaths << QString::fromStdString(sim::getStringParam(sim_stringparam_application_path) + "/qml");
+        importPaths << QString::fromStdString(sim::getStringParam(sim_stringparam_resourcesdir) + "/qml");
         importPaths << QString::fromStdString(sim::getStringParam(sim_stringparam_scene_path));
         QQmlApplicationEngine *engine;
         sim->createEngine(&engine, importPaths);
