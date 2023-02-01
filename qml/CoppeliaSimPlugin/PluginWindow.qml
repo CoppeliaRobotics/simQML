@@ -11,9 +11,10 @@ Window {
     title: qsTr("QML Plugin Window")
     property alias simBridge: simBridge
     property bool sticky: false
+    property alias palette: systemPalette
 
     SystemPalette {
-        id: palette
+        id: systemPalette
         colorGroup: SystemPalette.Active
     }
 
