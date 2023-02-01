@@ -27,10 +27,10 @@ function simQML.setEventHandler(engine,funcName)
     simQML.setEventHandlerRaw(engine,wrappedFuncName)
 end
 
-function simQML.resolveHandlerFunction(name)
+function simQML.resolveHandlerFunction(funcName)
     local f=nil
-    if _G[name] then
-        f=_G[name]
+    if _G[funcName] then
+        f=_G[funcName]
     elseif simQML['__handler__'..funcName] then
         f=simQML['__handler__'..funcName]
     end
