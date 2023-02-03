@@ -1,5 +1,5 @@
-#include "simPlusPlus/Plugin.h"
-#include "simPlusPlus/Handles.h"
+#include <simPlusPlus/Plugin.h>
+#include <simPlusPlus/Handles.h>
 #include "plugin.h"
 #include "stubs.h"
 #include "config.h"
