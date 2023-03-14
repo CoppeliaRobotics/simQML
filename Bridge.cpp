@@ -1,6 +1,9 @@
 #include "Bridge.h"
 #include "SIM.h"
 
+#include <QApplication>
+#include <QEvent>
+
 #include <simPlusPlus/Lib.h>
 
 void Bridge::registerQmlType()
@@ -14,10 +17,23 @@ Bridge::Bridge(QObject *parent)
     SIM *sim = SIM::getInstance();
     connect(this, &Bridge::eventFromQML, sim, &SIM::onEventFromQML);
     connect(sim, &SIM::sendEventToQML, this, &Bridge::eventFromSIM, Qt::BlockingQueuedConnection);
+    QApplication::instance()->installEventFilter(this);
 }
 
 Bridge::~Bridge()
 {
+}
+
+bool Bridge::eventFilter(QObject *object, QEvent *event)
+{
+    bool act = event->type() == QEvent::ApplicationActivate;
+    bool deact = event->type() == QEvent::ApplicationDeactivate;
+    if(act || deact)
+    {
+        auto engine = static_cast<QQmlApplicationEngine *>(qmlEngine(this));
+        eventFromSIM(engine, "onAppSwitch", act ? "true" : "false");
+    }
+    return false;
 }
 
 void Bridge::eventFromSIM(QQmlApplicationEngine *engine, QString name, QByteArray data)

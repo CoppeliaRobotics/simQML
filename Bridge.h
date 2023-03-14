@@ -20,6 +20,8 @@ public:
     Bridge(QObject *parent = 0);
     virtual ~Bridge();
 
+    bool eventFilter(QObject *object, QEvent *event);
+
     Q_INVOKABLE void sendEventRaw(QString name, QByteArray data);
 
 signals:

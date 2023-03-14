@@ -7,7 +7,7 @@ Window {
     height: 225
     flags: (
         Qt.platform.os === "windows"
-            ? Qt.Dialog | Qt.WindowStaysOnTopHint | Qt.MSWindowsFixedSizeDialogHint | Qt.WindowTitleHint
+            ? Qt.Dialog | (applicationActive ? Qt.WindowStaysOnTopHint : 0) | Qt.MSWindowsFixedSizeDialogHint | Qt.WindowTitleHint | Qt.WindowSystemMenuHint
             : Qt.Tool
         )
     color: palette.window
@@ -18,6 +18,7 @@ Window {
     property bool currentSceneActive: true
     property bool visibleInCurrentScene: true
     visible: visibleInCurrentScene && (sticky || currentSceneActive)
+    property bool applicationActive: true
 
     SystemPalette {
         id: systemPalette
@@ -37,6 +38,10 @@ Window {
      */
     function onInstanceSwitch(active) {
         currentSceneActive = active
+    }
+
+    function onAppSwitch(active) {
+        applicationActive = active
     }
 }
 
