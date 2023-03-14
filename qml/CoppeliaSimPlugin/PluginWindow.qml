@@ -5,11 +5,19 @@ Window {
     id: mainWindow
     width: 320
     height: 225
-    flags: (
-        Qt.platform.os === "windows"
-            ? Qt.Dialog | (applicationActive ? Qt.WindowStaysOnTopHint : 0) | Qt.MSWindowsFixedSizeDialogHint | Qt.WindowTitleHint | Qt.WindowSystemMenuHint
+    flags: (0
+        | (Qt.platform.os === "windows"
+            ? (0
+                | Qt.Dialog
+                | Qt.WindowTitleHint
+                | Qt.WindowSystemMenuHint
+                | (applicationActive ? Qt.WindowStaysOnTopHint : 0)
+              )
             : Qt.Tool
-        )
+          )
+        | (closeable ? Qt.WindowCloseButtonHint : 0)
+        | (resizable ? Qt.WindowMaximizeButtonHint : Qt.MSWindowsFixedSizeDialogHint)
+    )
     color: palette.window
     title: qsTr("QML Plugin Window")
     property alias simBridge: simBridge
@@ -19,6 +27,8 @@ Window {
     property bool visibleInCurrentScene: true
     visible: visibleInCurrentScene && (sticky || currentSceneActive)
     property bool applicationActive: true
+    property bool resizable: true
+    property bool closeable: true
 
     SystemPalette {
         id: systemPalette
