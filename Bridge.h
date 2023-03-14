@@ -20,6 +20,10 @@ public:
     Bridge(QObject *parent = 0);
     virtual ~Bridge();
 
+    Q_PROPERTY(int platform READ platform);
+
+    int platform() const;
+
     Q_INVOKABLE void sendEventRaw(QString name, QByteArray data);
 
 signals:
@@ -28,6 +32,9 @@ signals:
 
 public slots:
     void eventFromSIM(QQmlApplicationEngine *engine, QString name, QByteArray data);
+
+public:
+    static int platform_;
 };
 
 #endif // BRIDGE_H_INCLUDED

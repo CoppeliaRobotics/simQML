@@ -46,8 +46,9 @@ void UI::destroyInstance()
     }
 }
 
-void UI::onCreateEngine(QQmlApplicationEngine **engine, const QStringList &importPaths)
+void UI::onCreateEngine(QQmlApplicationEngine **engine, const QStringList &importPaths, int platform)
 {
+    Bridge::platform_ = platform;
     sim::addLog(sim_verbosity_debug, "creating a new QML engine...");
     auto e = new QQmlApplicationEngine(this);
     for(const auto &path : importPaths)

@@ -27,7 +27,7 @@ private:
     static SIM *instance;
 
 signals:
-    void createEngine(QQmlApplicationEngine **engine, const QStringList &importPaths);
+    void createEngine(QQmlApplicationEngine **engine, const QStringList &importPaths, int platform);
     void destroyEngine(QQmlApplicationEngine *engine);
     void setEventHandler(QQmlApplicationEngine *engine, int scriptID, QString functionName);
     void setEngineHandle(QQmlApplicationEngine *engine, QString handle);

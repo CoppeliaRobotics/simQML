@@ -6,7 +6,11 @@ Window {
     width: 320
     height: 225
     visible: true
-    flags: Qt.Tool
+    flags: (
+        simBridge.platform == 0 /* Windows */
+            ? Qt.Dialog | Qt.WindowStaysOnTopHint | Qt.MSWindowsFixedSizeDialogHint | Qt.WindowTitleHint
+            : Qt.Tool
+        )
     color: palette.window
     title: qsTr("QML Plugin Window")
     property alias simBridge: simBridge

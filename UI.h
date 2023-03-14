@@ -34,7 +34,7 @@ signals:
 #endif // Qt5_Quick3D_FOUND
 
 public slots:
-    void onCreateEngine(QQmlApplicationEngine **engine, const QStringList &importPaths);
+    void onCreateEngine(QQmlApplicationEngine **engine, const QStringList &importPaths, int platform);
     void onDestroyEngine(QQmlApplicationEngine *engine);
     void onSetEventHandler(QQmlApplicationEngine *engine, int scriptID, QString functionName);
     void onSetEngineHandle(QQmlApplicationEngine *engine, QString handle);

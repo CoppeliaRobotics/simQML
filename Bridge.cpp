@@ -3,6 +3,8 @@
 
 #include <simPlusPlus/Lib.h>
 
+int Bridge::platform_ = -1;
+
 void Bridge::registerQmlType()
 {
     qmlRegisterType<Bridge>("CoppeliaSimPlugin.Bridge", 1, 0, "CoppeliaSimBridge");
@@ -31,6 +33,11 @@ void Bridge::eventFromSIM(QQmlApplicationEngine *engine, QString name, QByteArra
      *
      * however handling variable number of arguments with arbitrary type still remains a problem.
      */
+}
+
+int Bridge::platform() const
+{
+    return platform_;
 }
 
 void Bridge::sendEventRaw(QString name, QByteArray data)
