@@ -77,8 +77,7 @@ public:
         importPaths << QString::fromStdString(sim::getStringParam(sim_stringparam_resourcesdir) + "/qml");
         importPaths << QString::fromStdString(sim::getStringParam(sim_stringparam_scene_path));
         QQmlApplicationEngine *engine;
-        int platform = sim::getInt32Param(sim_intparam_platform);
-        sim->createEngine(&engine, importPaths, platform);
+        sim->createEngine(&engine, importPaths);
         out->handle = handles.add(engine, in->_.scriptID);
         sim->setEngineHandle(engine, QString::fromStdString(out->handle));
     }

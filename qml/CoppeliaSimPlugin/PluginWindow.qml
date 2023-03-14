@@ -1,12 +1,12 @@
-import QtQuick 2.12
-import QtQuick.Window 2.12
+import QtQuick 2.15
+import QtQuick.Window 2.15
 
 Window {
     id: mainWindow
     width: 320
     height: 225
     flags: (
-        simBridge.platform == 0 /* Windows */
+        Qt.platform.os === "windows"
             ? Qt.Dialog | Qt.WindowStaysOnTopHint | Qt.MSWindowsFixedSizeDialogHint | Qt.WindowTitleHint
             : Qt.Tool
         )
