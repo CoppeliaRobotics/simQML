@@ -5,7 +5,6 @@ Window {
     id: mainWindow
     width: 320
     height: 225
-    visible: true
     flags: (
         simBridge.platform == 0 /* Windows */
             ? Qt.Dialog | Qt.WindowStaysOnTopHint | Qt.MSWindowsFixedSizeDialogHint | Qt.WindowTitleHint
@@ -16,6 +15,9 @@ Window {
     property alias simBridge: simBridge
     property bool sticky: false
     property alias palette: systemPalette
+    property bool currentSceneActive: true
+    property bool visibleInCurrentScene: true
+    visible: visibleInCurrentScene && (sticky || currentSceneActive)
 
     SystemPalette {
         id: systemPalette
@@ -34,7 +36,7 @@ Window {
      * this window becomes active/inactive.
      */
     function onInstanceSwitch(active) {
-        visible = sticky || active
+        currentSceneActive = active
     }
 }
 
