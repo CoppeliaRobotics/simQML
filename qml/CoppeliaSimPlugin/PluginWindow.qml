@@ -1,5 +1,6 @@
 import QtQuick 2.15
 import QtQuick.Window 2.15
+import QtQml 2.15
 
 Window {
     id: mainWindow
@@ -11,7 +12,6 @@ Window {
                 | Qt.Dialog
                 | Qt.WindowTitleHint
                 | Qt.WindowSystemMenuHint
-                | (applicationActive ? Qt.WindowStaysOnTopHint : 0)
               )
             : Qt.Tool
           )
@@ -52,6 +52,20 @@ Window {
 
     function onAppSwitch(active) {
         applicationActive = active
+        if(Qt.platform.os === "windows" && active)
+            simBridge.raiseAboveMainWindow(mainWindow)
+    }
+
+    function onActiveWindowChange() {
+        if(Qt.platform.os === "windows")
+            simBridge.raiseAboveMainWindow(mainWindow)
+    }
+
+    Timer {
+        interval: 2500
+        running: Qt.platform.os === "windows"
+        repeat: true
+        onTriggered: simBridge.raiseAboveMainWindow(mainWindow)
     }
 }
 

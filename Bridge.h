@@ -7,6 +7,7 @@
 #include <QString>
 #include <QWidget>
 #include <QQmlApplicationEngine>
+#include <QQuickWindow>
 
 #include "stubs.h"
 
@@ -23,6 +24,8 @@ public:
     bool eventFilter(QObject *object, QEvent *event);
 
     Q_INVOKABLE void sendEventRaw(QString name, QByteArray data);
+
+    Q_INVOKABLE void raiseAboveMainWindow(QQuickWindow *window);
 
 signals:
     void eventFromQML(QQmlApplicationEngine *engine, QString name, QByteArray data);

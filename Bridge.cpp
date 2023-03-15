@@ -24,14 +24,23 @@ Bridge::~Bridge()
 {
 }
 
+#include <iostream>
+
 bool Bridge::eventFilter(QObject *object, QEvent *event)
 {
-    bool act = event->type() == QEvent::ApplicationActivate;
-    bool deact = event->type() == QEvent::ApplicationDeactivate;
-    if(act || deact)
+    auto engine = static_cast<QQmlApplicationEngine *>(qmlEngine(this));
+    QWidget *mainWindow = (QWidget *)sim::getMainWindow(1);
+    switch(event->type())
     {
-        auto engine = static_cast<QQmlApplicationEngine *>(qmlEngine(this));
-        eventFromSIM(engine, "onAppSwitch", act ? "true" : "false");
+    case QEvent::ApplicationActivate:
+        eventFromSIM(engine, "onAppSwitch", "true");
+        break;
+    case QEvent::ApplicationDeactivate:
+        eventFromSIM(engine, "onAppSwitch", "false");
+        break;
+    case QEvent::ActivationChange:
+        eventFromSIM(engine, "onActiveWindowChange", "null");
+        break;
     }
     return false;
 }
@@ -54,4 +63,24 @@ void Bridge::sendEventRaw(QString name, QByteArray data)
     sim::addLog(sim_verbosity_debug, "Bridge::sendEventRaw(\"%s\", \"%s\")", name.toStdString(), std::string(data.constData(), data.length()));
     auto engine = static_cast<QQmlApplicationEngine *>(qmlEngine(this));
     emit eventFromQML(engine, name, data);
+}
+
+void Bridge::raiseAboveMainWindow(QQuickWindow *window)
+{
+#ifdef WIN32
+    QWidget *mainWindow = (QWidget *)sim::getMainWindow(1);
+    HWND hwnd = reinterpret_cast<HWND>(window->winId());
+    HWND hwndMain = reinterpret_cast<HWND>(mainWindow->winId());
+    // check if mainWindow is stacked above the window
+    HWND hwndAfter = ::GetWindow(hwndMain, GW_HWNDNEXT);
+    while(hwndAfter != nullptr) {
+        if(hwndAfter == hwnd) {
+            // if so, raise window above mainWindow
+            HWND hwndInsertAfter = ::GetNextWindow(hwndMain, GW_HWNDPREV);
+            ::SetWindowPos(hwnd, hwndInsertAfter, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOACTIVATE);
+            break;
+        }
+        hwndAfter = ::GetWindow(hwndAfter, GW_HWNDNEXT);
+    }
+#endif
 }
