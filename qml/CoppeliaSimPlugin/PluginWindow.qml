@@ -9,14 +9,14 @@ Window {
     flags: (0
         | (Qt.platform.os === "windows"
             ? (0
+                | Qt.CustomizeWindowHint
                 | Qt.Dialog
                 | Qt.WindowTitleHint
-                | Qt.WindowSystemMenuHint
               )
             : Qt.Tool
           )
         | (closeable ? Qt.WindowCloseButtonHint : 0)
-        | (resizable ? Qt.WindowMaximizeButtonHint : Qt.MSWindowsFixedSizeDialogHint)
+        | (resizable ? 0 : Qt.MSWindowsFixedSizeDialogHint)
     )
     color: palette.window
     title: qsTr("QML Plugin Window")
