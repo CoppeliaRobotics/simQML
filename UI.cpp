@@ -118,7 +118,7 @@ void UI::onSetEngineHandle(QQmlApplicationEngine *engine, QString handle)
 void UI::onLoad(QQmlApplicationEngine *engine, QString filename, QString contextInfo)
 {
     engine->setProperty("contextInfo", contextInfo);
-    engine->load(QUrl(filename));
+    engine->load(filename);
     engine->setProperty("contextInfo", QVariant());
 }
 
