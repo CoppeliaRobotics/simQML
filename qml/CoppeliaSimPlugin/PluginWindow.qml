@@ -6,7 +6,12 @@ Window {
     id: mainWindow
     width: 320
     height: 225
-    flags: (0
+    /*
+     * On macOS we need Qt.Tool to have the window stay on top of the CoppeliaSim's main window.
+     * On Windows it seems there is no way for that to happen, and we need a nasty hack (see
+     * below, in all the places where simBridge.raiseAboveMainWindow is called).
+     */
+    readonly property int defaultFlags: (0
         | (Qt.platform.os === "windows"
             ? (0
                 | Qt.CustomizeWindowHint
@@ -18,6 +23,7 @@ Window {
         | (closeable ? Qt.WindowCloseButtonHint : 0)
         | (resizable ? 0 : Qt.MSWindowsFixedSizeDialogHint)
     )
+    flags: defaultFlags
     color: palette.window
     title: qsTr("QML Plugin Window")
     property alias simBridge: simBridge
