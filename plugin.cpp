@@ -11,6 +11,7 @@
 #endif // Qt5_Quick3D_FOUND
 
 #include <QBuffer>
+#include <QLibraryInfo>
 
 class Plugin : public sim::Plugin
 {
@@ -142,6 +143,12 @@ public:
         out->dataURL += imageFormat->second;
         out->dataURL += ";base64,";
         out->dataURL += std::string(data_b64.data());
+    }
+
+    void qtVersion(qtVersion_in *in, qtVersion_out *out)
+    {
+        auto v = QLibraryInfo::version().segments();
+        out->version = std::vector<int>(v.constBegin(), v.constEnd());
     }
 
 private:
