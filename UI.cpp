@@ -1,4 +1,5 @@
 #include "UI.h"
+#include "SIM.h"
 #include "Bridge.h"
 
 #include <QThread>
@@ -30,6 +31,21 @@ UI * UI::getInstance(QObject *parent)
         UI::instance = new UI(parent);
         UI::simMainWindow = (QWidget *)sim::getMainWindow(1);
         sim::addLog(sim_verbosity_debug, "UI(%x) constructed in thread %s", UI::instance, QThread::currentThreadId());
+
+        SIM *sim = SIM::getInstance();
+        UI *ui = UI::getInstance();
+        // connect signals/slots from UI to SIM and vice-versa
+        connect(sim, &SIM::createEngine, ui, &UI::onCreateEngine, Qt::BlockingQueuedConnection);
+        connect(sim, &SIM::destroyEngine, ui, &UI::onDestroyEngine, Qt::BlockingQueuedConnection);
+        connect(sim, &SIM::setEventHandler, ui, &UI::onSetEventHandler, Qt::BlockingQueuedConnection);
+        connect(sim, &SIM::setEngineHandle, ui, &UI::onSetEngineHandle, Qt::BlockingQueuedConnection);
+        connect(sim, &SIM::load, ui, &UI::onLoad, Qt::BlockingQueuedConnection);
+        connect(sim, &SIM::loadData, ui, &UI::onLoadData, Qt::BlockingQueuedConnection);
+
+#ifdef Qt5_Quick3D_FOUND
+        connect(ui, &UI::getMeshData, sim, &SIM::onGetMeshData);
+        connect(sim, &SIM::updateMeshData, ui, &UI::onSetMeshData);
+#endif // Qt5_Quick3D_FOUND
     }
     return UI::instance;
 }

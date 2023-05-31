@@ -16,7 +16,7 @@
 class Plugin : public sim::Plugin
 {
 public:
-    void onStart()
+    void onInit()
     {
         if(sim::getBoolParam(sim_boolparam_headless))
             throw std::runtime_error("doesn't work in headless mode");
@@ -32,22 +32,22 @@ public:
         Geometry::registerQmlType();
 #endif // Qt5_Quick3D_FOUND
 
-        auto w = nullptr;//reinterpret_cast<QWidget*>(sim::getMainWindow(1));
-        ui = UI::getInstance(w);
-    }
-
-    void onFirstInstancePass(const sim::InstancePassFlags &flags)
-    {
         sim = SIM::getInstance();
     }
 
-    void onLastInstancePass()
+    void onCleanup()
     {
         SIM::destroyInstance();
         sim = nullptr;
     }
 
-    void onEnd()
+    void onUIInit()
+    {
+        auto w = nullptr;//reinterpret_cast<QWidget*>(sim::getMainWindow(1));
+        ui = UI::getInstance(w);
+    }
+
+    void onUICleanup()
     {
         UI::destroyInstance();
         ui = nullptr;
@@ -173,5 +173,5 @@ private:
     };
 };
 
-SIM_PLUGIN(PLUGIN_NAME, PLUGIN_VERSION, Plugin)
+SIM_UI_PLUGIN(PLUGIN_NAME, PLUGIN_VERSION, Plugin)
 #include "stubsPlusPlus.cpp"

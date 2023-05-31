@@ -13,19 +13,6 @@ SIM *SIM::instance = nullptr;
 SIM::SIM(QObject *parent)
     : QObject(parent)
 {
-    UI *ui = UI::getInstance();
-    // connect signals/slots from UI to SIM and vice-versa
-    connect(this, &SIM::createEngine, ui, &UI::onCreateEngine, Qt::BlockingQueuedConnection);
-    connect(this, &SIM::destroyEngine, ui, &UI::onDestroyEngine, Qt::BlockingQueuedConnection);
-    connect(this, &SIM::setEventHandler, ui, &UI::onSetEventHandler, Qt::BlockingQueuedConnection);
-    connect(this, &SIM::setEngineHandle, ui, &UI::onSetEngineHandle, Qt::BlockingQueuedConnection);
-    connect(this, &SIM::load, ui, &UI::onLoad, Qt::BlockingQueuedConnection);
-    connect(this, &SIM::loadData, ui, &UI::onLoadData, Qt::BlockingQueuedConnection);
-
-#ifdef Qt5_Quick3D_FOUND
-    connect(ui, &UI::getMeshData, this, &SIM::onGetMeshData);
-    connect(this, &SIM::updateMeshData, ui, &UI::onSetMeshData);
-#endif // Qt5_Quick3D_FOUND
 }
 
 SIM::~SIM()

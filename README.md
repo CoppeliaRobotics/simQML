@@ -6,8 +6,8 @@
 2. Download and install Qt (same version as CoppeliaSim)
 3. Checkout, compile and install into CoppeliaSim:
 ```sh
-$ git clone https://github.com/CoppeliaRobotics/simExtQML.git
-$ cd simExtQML
+$ git clone https://github.com/CoppeliaRobotics/simQML.git
+$ cd simQML
 $ git checkout coppeliasim-v4.5.0-rev0
 $ mkdir -p build && cd build
 $ cmake -DCMAKE_BUILD_TYPE=Release ..
@@ -21,7 +21,7 @@ NOTE: You may need to set the `CMAKE_PREFIX_PATH` environment variable to the `l
 
 NOTE: You may need to run the deploy tool to copy additional Qt dependencies to CoppeliaSim, e.g.:
 ```sh
-macdeployqt $COPPELIASIM_ROOT_DIR/../.. -qmldir=/path/to/simExtQML/qml -always-overwrite -verbose=2
+macdeployqt $COPPELIASIM_ROOT_DIR/../.. -qmldir=/path/to/simQML/qml -always-overwrite -verbose=2
 ```
 
 ### Usage
