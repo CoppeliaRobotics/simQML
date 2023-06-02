@@ -1,4 +1,4 @@
-local simQML=loadPlugin'simQML'
+local simQML=loadPlugin'simQML';
 
 local json=require'dkjson'
 
@@ -47,6 +47,6 @@ function simQML.__handler__dispatchEventsToFunctions(engine,name,data)
     _G[name](data)
 end
 
-(require'simQML-typecheck')(simQML)
+;(require'simQML-typecheck')(simQML)
 
 return simQML
