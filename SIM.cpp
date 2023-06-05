@@ -36,7 +36,7 @@ void SIM::destroyInstance()
     {
         auto inst = SIM::instance;
         disconnect(inst, nullptr, nullptr, nullptr);
-        SIM::instance->deleteLater();
+        delete SIM::instance; //SIM::instance->deleteLater(); crashes on quit
         SIM::instance = nullptr;
         sim::addLog(sim_verbosity_debug, "SIM(%x) destroyed in thread %s", inst, QThread::currentThreadId());
     }
