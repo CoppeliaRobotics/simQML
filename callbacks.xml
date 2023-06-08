@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <?xml-stylesheet type="text/xsl" href="callbacks.xsl"?>
 
-<plugin name="QML" author="federico.ferri.it@gmail.com">
+<plugin name="simQML" author="federico.ferri.it@gmail.com">
     <description>API functions for creating QML user interfaces. More info about creating user interfaces in QML can be found at <a href="https://doc.qt.io/qt-5/qtquick-index.html">https://doc.qt.io/</a>.</description>
     <command name="createEngine">
         <description>Create a QML engine.</description>
@@ -101,7 +101,7 @@
             <param name="format" type="string" default='"BMP"'>
                 <description>encoding format (must be "PNG", "JPG" or "BMP")</description>
             </param>
-            <param name="data_format" type="int" default="sim_qml_image_data_format_rgb888">
+            <param name="data_format" type="int" default="simqml_image_data_format_rgb888">
                 <description>image data format (see <enum-ref name="image_data_format" />)</description>
             </param>
         </params>

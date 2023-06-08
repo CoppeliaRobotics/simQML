@@ -162,16 +162,16 @@ private:
         {"JPG", "image/jpeg"}
     };
     const std::map<int, QImage::Format> imageDataFormats{
-        {sim_qml_image_data_format_gray8,    QImage::Format_Grayscale8},
-        {sim_qml_image_data_format_rgb888,   QImage::Format_RGB888},
+        {simqml_image_data_format_gray8,    QImage::Format_Grayscale8},
+        {simqml_image_data_format_rgb888,   QImage::Format_RGB888},
 #if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
-        {sim_qml_image_data_format_bgr888,   QImage::Format_BGR888},
+        {simqml_image_data_format_bgr888,   QImage::Format_BGR888},
 #endif
-        {sim_qml_image_data_format_rgbx8888, QImage::Format_RGBX8888},
-        {sim_qml_image_data_format_rgb32,    QImage::Format_RGB32},
-        {sim_qml_image_data_format_argb32,   QImage::Format_ARGB32}
+        {simqml_image_data_format_rgbx8888, QImage::Format_RGBX8888},
+        {simqml_image_data_format_rgb32,    QImage::Format_RGB32},
+        {simqml_image_data_format_argb32,   QImage::Format_ARGB32}
     };
 };
 
-SIM_UI_PLUGIN(PLUGIN_NAME, PLUGIN_VERSION, Plugin)
+SIM_UI_PLUGIN(Plugin)
 #include "stubsPlusPlus.cpp"
