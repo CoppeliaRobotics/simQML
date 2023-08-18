@@ -5,10 +5,13 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_MACOSX_RPATH 1)
 
+set(Qt Qt5 CACHE STRING "Qt version to use (e.g. Qt5)")
+set_property(CACHE Qt PROPERTY STRINGS Qt5 Qt6)  #
+
 find_package(Boost REQUIRED)
-find_package(Qt5 COMPONENTS Core Gui Widgets PrintSupport Qml Quick QuickWidgets QuickControls2 REQUIRED)
-if(Qt5_VERSION VERSION_GREATER_EQUAL 5.15)
-    find_package(Qt5 COMPONENTS Quick3D)
+find_package(${Qt} COMPONENTS Core Gui Widgets PrintSupport Qml Quick QuickWidgets QuickControls2 REQUIRED)
+if(Qt STREQUAL Qt6 OR Qt5_VERSION VERSION_GREATER_EQUAL 5.15)
+    find_package(${Qt} COMPONENTS Quick3D)
 endif()
 
 if(NOT COPPELIASIM_INCLUDE_DIR)
@@ -52,24 +55,24 @@ set(SOURCES
 
 set(LIBRARIES
     Boost::boost
-    Qt5::Core
-    Qt5::Gui
-    Qt5::Widgets
-    Qt5::PrintSupport
-    Qt5::Qml
-    Qt5::Quick
-    Qt5::QuickWidgets
-    #Qt5::QuickControls2
+    ${Qt}::Core
+    ${Qt}::Gui
+    ${Qt}::Widgets
+    ${Qt}::PrintSupport
+    ${Qt}::Qml
+    ${Qt}::Quick
+    ${Qt}::QuickWidgets
+    #${Qt}::QuickControls2
 )
 
-if(Qt5_Quick3D_FOUND)
+if(${Qt}_Quick3D_FOUND)
     list(APPEND SOURCES Geometry.cpp)
-    list(APPEND LIBRARIES Qt5::Quick3D)
+    list(APPEND LIBRARIES ${Qt}::Quick3D)
 endif()
 
 coppeliasim_add_plugin(simQML SOURCES ${SOURCES})
-if(Qt5_Quick3D_FOUND)
-    target_compile_options(simQML PRIVATE Qt5_Quick3D_FOUND)
+if(${Qt}_Quick3D_FOUND)
+    target_compile_options(simQML PRIVATE Qt_Quick3D_FOUND)
 endif()
 target_link_libraries(simQML ${LIBRARIES})
 coppeliasim_add_resource_directory(qml)

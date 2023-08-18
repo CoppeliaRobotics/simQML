@@ -72,7 +72,7 @@ void SIM::onEventFromQML(QQmlApplicationEngine *engine, QString name, QByteArray
     onEventReceivedRaw(scriptID, functionName.c_str(), &in, &out);
 }
 
-#ifdef Qt5_Quick3D_FOUND
+#ifdef Qt_Quick3D_FOUND
 void SIM::onGetMeshData(int shapeHandle, Geometry *geom)
 {
     double *verticesBuf;
@@ -90,4 +90,4 @@ void SIM::onGetMeshData(int shapeHandle, Geometry *geom)
         emit updateMeshData(geom, vertexData, indexData);
     }
 }
-#endif // Qt5_Quick3D_FOUND
+#endif // Qt_Quick3D_FOUND

@@ -6,9 +6,9 @@
 #include "UI.h"
 #include "SIM.h"
 #include "Bridge.h"
-#ifdef Qt5_Quick3D_FOUND
+#ifdef Qt_Quick3D_FOUND
 #include "Geometry.h"
-#endif // Qt5_Quick3D_FOUND
+#endif // Qt_Quick3D_FOUND
 
 #include <QBuffer>
 #include <QLibraryInfo>
@@ -28,9 +28,9 @@ public:
         setBuildDate(BUILD_DATE);
 
         Bridge::registerQmlType();
-#ifdef Qt5_Quick3D_FOUND
+#ifdef Qt_Quick3D_FOUND
         Geometry::registerQmlType();
-#endif // Qt5_Quick3D_FOUND
+#endif // Qt_Quick3D_FOUND
 
         sim = SIM::getInstance();
     }

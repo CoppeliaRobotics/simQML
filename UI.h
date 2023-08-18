@@ -6,9 +6,9 @@
 #include <QWidget>
 #include <QQmlApplicationEngine>
 
-#ifdef Qt5_Quick3D_FOUND
+#ifdef Qt_Quick3D_FOUND
 #include "Geometry.h"
-#endif // Qt5_Quick3D_FOUND
+#endif // Qt_Quick3D_FOUND
 
 class UI : public QObject
 {
@@ -29,9 +29,9 @@ public:
     static QWidget *simMainWindow;
 
 signals:
-#ifdef Qt5_Quick3D_FOUND
+#ifdef Qt_Quick3D_FOUND
     void getMeshData(int shapeHandle, Geometry *geom);
-#endif // Qt5_Quick3D_FOUND
+#endif // Qt_Quick3D_FOUND
 
 public slots:
     void onCreateEngine(QQmlApplicationEngine **engine, const QStringList &importPaths);
@@ -40,9 +40,9 @@ public slots:
     void onSetEngineHandle(QQmlApplicationEngine *engine, QString handle);
     void onLoad(QQmlApplicationEngine *engine, QString filename, QString contextInfo);
     void onLoadData(QQmlApplicationEngine *engine, QByteArray data, QString basepath, QString contextInfo);
-#ifdef Qt5_Quick3D_FOUND
+#ifdef Qt_Quick3D_FOUND
     void onSetMeshData(Geometry *geom, QByteArray vertexData, QByteArray indexData);
-#endif // Qt5_Quick3D_FOUND
+#endif // Qt_Quick3D_FOUND
 };
 
 #endif // UI_H_INCLUDED
