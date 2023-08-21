@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.5)
+cmake_minimum_required(VERSION 3.16.3)
 project(simQML)
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
@@ -74,5 +74,5 @@ coppeliasim_add_plugin(simQML SOURCES ${SOURCES})
 if(${Qt}_Quick3D_FOUND)
     target_compile_options(simQML PRIVATE Qt_Quick3D_FOUND)
 endif()
-target_link_libraries(simQML ${LIBRARIES})
+target_link_libraries(simQML PRIVATE ${LIBRARIES})
 coppeliasim_add_resource_directory(qml)
