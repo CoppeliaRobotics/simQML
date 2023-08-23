@@ -56,14 +56,15 @@ set(SOURCES
 
 set(LIBRARIES
     Boost::boost
-    ${Qt}::Core
-    ${Qt}::Gui
-    ${Qt}::Widgets
-    ${Qt}::PrintSupport
-    ${Qt}::Qml
-    ${Qt}::Quick
-    ${Qt}::QuickWidgets
-    #${Qt}::QuickControls2
+    Qt::Core
+    Qt::Gui
+    Qt::Widgets
+    Qt::PrintSupport
+    Qt::Qml
+    Qt::Quick
+    Qt::QuickWidgets
+    #Qt::QuickControls2
+    Qt::Quick3D
 )
 
 coppeliasim_add_plugin(simQML SOURCES ${SOURCES})
