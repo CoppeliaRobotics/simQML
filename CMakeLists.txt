@@ -51,6 +51,7 @@ set(SOURCES
     SIM.cpp
     Bridge.cpp
     plugin.cpp
+    Geometry.cpp
 )
 
 set(LIBRARIES
@@ -65,14 +66,6 @@ set(LIBRARIES
     #${Qt}::QuickControls2
 )
 
-if(${Qt}_Quick3D_FOUND)
-    list(APPEND SOURCES Geometry.cpp)
-    list(APPEND LIBRARIES ${Qt}::Quick3D)
-endif()
-
 coppeliasim_add_plugin(simQML SOURCES ${SOURCES})
-if(${Qt}_Quick3D_FOUND)
-    target_compile_options(simQML PRIVATE Qt_Quick3D_FOUND)
-endif()
 target_link_libraries(simQML PRIVATE ${LIBRARIES})
 coppeliasim_add_resource_directory(qml)

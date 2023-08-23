@@ -41,11 +41,8 @@ UI * UI::getInstance(QObject *parent)
         connect(sim, &SIM::setEngineHandle, ui, &UI::onSetEngineHandle, Qt::BlockingQueuedConnection);
         connect(sim, &SIM::load, ui, &UI::onLoad, Qt::BlockingQueuedConnection);
         connect(sim, &SIM::loadData, ui, &UI::onLoadData, Qt::BlockingQueuedConnection);
-
-#ifdef Qt_Quick3D_FOUND
         connect(ui, &UI::getMeshData, sim, &SIM::onGetMeshData);
         connect(sim, &SIM::updateMeshData, ui, &UI::onSetMeshData);
-#endif // Qt_Quick3D_FOUND
     }
     return UI::instance;
 }
@@ -145,9 +142,7 @@ void UI::onLoadData(QQmlApplicationEngine *engine, QByteArray data, QString base
     engine->setProperty("contextInfo", QVariant());
 }
 
-#ifdef Qt_Quick3D_FOUND
 void UI::onSetMeshData(Geometry *geom, QByteArray vertexData, QByteArray indexData)
 {
     geom->setMeshData(vertexData, indexData);
 }
-#endif // Qt_Quick3D_FOUND

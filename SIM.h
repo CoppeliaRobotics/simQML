@@ -7,9 +7,7 @@
 #include <QMap>
 #include <QQmlApplicationEngine>
 
-#ifdef Qt_Quick3D_FOUND
 #include "Geometry.h"
-#endif // Qt_Quick3D_FOUND
 
 class SIM : public QObject
 {
@@ -39,14 +37,10 @@ public slots:
     void onEventFromQML(QQmlApplicationEngine *engine, QString name, QByteArray data);
 
 public slots:
-#ifdef Qt_Quick3D_FOUND
     void onGetMeshData(int shapeHandle, Geometry *geom);
-#endif // Qt_Quick3D_FOUND
 
 signals:
-#ifdef Qt_Quick3D_FOUND
     void updateMeshData(Geometry *geom, QByteArray vertexData, QByteArray indexData);
-#endif // Qt_Quick3D_FOUND
 };
 
 #endif // SIM_H_INCLUDED
