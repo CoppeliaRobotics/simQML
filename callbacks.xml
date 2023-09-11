@@ -89,7 +89,7 @@
     <command name="imageDataURL">
         <description>Encode image data according to "data" URL scheme (RFC 2397).</description>
         <params>
-            <param name="data" type="string">
+            <param name="data" type="buffer">
                 <description>raw image data</description>
             </param>
             <param name="width" type="int">
@@ -130,7 +130,7 @@
             <param name="eventName" type="string">
                 <description>event name</description>
             </param>
-            <param name="eventData" type="string">
+            <param name="eventData" type="buffer">
                 <description>event data</description>
             </param>
         </params>
