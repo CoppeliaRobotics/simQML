@@ -42,16 +42,16 @@ endif()
 
 include_directories(${CMAKE_CURRENT_BINARY_DIR}/generated)
 
-coppeliasim_generate_stubs(${CMAKE_CURRENT_BINARY_DIR}/generated XML_FILE ${CMAKE_CURRENT_SOURCE_DIR}/callbacks.xml LUA_FILE ${CMAKE_CURRENT_SOURCE_DIR}/simQML.lua)
+coppeliasim_generate_stubs(${CMAKE_CURRENT_BINARY_DIR}/generated XML_FILE ${CMAKE_CURRENT_SOURCE_DIR}/sourceCode/callbacks.xml LUA_FILE ${CMAKE_CURRENT_SOURCE_DIR}/lua/simQML.lua)
 
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/config.h.in ${CMAKE_CURRENT_BINARY_DIR}/config.h)
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/sourceCode/config.h.in ${CMAKE_CURRENT_BINARY_DIR}/config.h)
 
 set(SOURCES
-    UI.cpp
-    SIM.cpp
-    Bridge.cpp
-    plugin.cpp
-    Geometry.cpp
+    sourceCode/UI.cpp
+    sourceCode/SIM.cpp
+    sourceCode/Bridge.cpp
+    sourceCode/plugin.cpp
+    sourceCode/Geometry.cpp
 )
 
 set(LIBRARIES
