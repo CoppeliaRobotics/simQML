@@ -56,5 +56,7 @@ void Geometry::setMeshData(QByteArray vertexData, QByteArray indexData)
         boundsMax.setZ(std::max(vertices[i + 2], i == 0 ? vertices[i + 2] : boundsMax.z()));
     }
     setBounds(boundsMin, boundsMax);
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     setName(QStringLiteral("CoppeliaSimGeometry-%1").arg(shapeHandle_));
+#endif
 }
