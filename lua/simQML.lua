@@ -22,7 +22,7 @@ function simQML.setEventHandler(engine, funcName)
         i = i + 1
     end
     _G[wrappedFuncName] = function(engine, eventName, eventData)
-        func(engine, eventName, json.decode(eventData))
+        func(engine, eventName, json.decode(tostring(eventData)))
     end
     simQML.setEventHandlerRaw(engine, wrappedFuncName)
 end
