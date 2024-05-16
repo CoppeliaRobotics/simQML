@@ -62,7 +62,7 @@ public:
         oldSceneID = sceneID;
     }
 
-    void onScriptStateAboutToBeDestroyed(int scriptHandle)
+    void onScriptStateAboutToBeDestroyed(int scriptHandle, int scriptUid)
     {
         for(auto engine : handles.find(scriptHandle))
             sim->destroyEngine(handles.remove(engine));
