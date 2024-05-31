@@ -47,6 +47,9 @@ bool Bridge::eventFilter(QObject *object, QEvent *event)
 
 void Bridge::eventFromSIM(QQmlApplicationEngine *engine, QString name, QByteArray data)
 {
+    auto myEngine = static_cast<QQmlApplicationEngine *>(qmlEngine(this));
+    if(myEngine != engine) return;
+
     sim::addLog(sim_verbosity_debug, "Bridge::eventFromSIM(\"%s\", \"%s\")", name.toStdString(), std::string(data.constData(), data.length()));
     emit eventReceived(name, data);
     /*
