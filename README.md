@@ -29,8 +29,8 @@ macdeployqt $COPPELIASIM_ROOT_DIR/../.. -qmldir=/path/to/simQML/qml -always-over
 In order to load QML components, a QML engine must be created:
 
 ```lua
-engine=simQML.createEngine()
-simQML.load(engine,'/path/to/Component.qml')
+engine = simQML.createEngine()
+simQML.load(engine, '/path/to/Component.qml')
 ```
 
 When the engine is not needed anymore, it should be destroyed with:
@@ -54,7 +54,7 @@ It is possible to use any other component, such as `QtQuick.Window` as the top-l
 Example:
 
 ```lua
-simQML.loadData(engine,[[
+simQML.loadData(engine, [[
     import QtQuick 2.12
     import CoppeliaSimPlugin 1.0
 
@@ -78,13 +78,13 @@ QML can call `simBridge.sendEvent(eventName, eventData)` to send an event to Lua
 In order to receive the event in Lua, an event handler must be registered with `simQML.setEventHandler`:
 
 ```lua
-function myEventHandler(engine,eventName,eventData)
-    print('received event',eventName,eventData)
+function myEventHandler(engine, eventName, eventData)
+    print('received event', eventName, eventData)
 end
 
-engine=simQML.createEngine()
-simQML.setEventHandler(engine,'myEventHandler')
-simQML.loadData(engine,[[
+engine = simQML.createEngine()
+simQML.setEventHandler(engine, 'myEventHandler')
+simQML.loadData(engine, [[
     import QtQuick 2.12
     import QtQuick.Controls 2.12
     import CoppeliaSimPlugin 1.0
@@ -106,15 +106,15 @@ simQML.loadData(engine,[[
 
 #### Communication: Lua -> QML
 
-It is possible to send *events* from Lua to QML using the `simQML.sendEvent(engine,name,data)` Lua function.
+It is possible to send *events* from Lua to QML using the `simQML.sendEvent(engine, name, data)` Lua function.
 
 In order to receive the event in QML, the handler `onEventReceived` of the `CoppeliaSimBridge` object must be implemented.
 
 For convenience, if using the `PluginWindow` component, that handler is already implemented, and the event will be dispatched as a call to a function defined in the `PluginWindow` component.
 
 ```lua
-engine=simQML.createEngine()
-simQML.loadData(engine,[[
+engine = simQML.createEngine()
+simQML.loadData(engine, [[
     import QtQuick 2.12
     import CoppeliaSimPlugin 1.0
 
@@ -129,7 +129,7 @@ simQML.loadData(engine,[[
         }
     }
 ]])
-simQML.sendEvent(engine,'myEvent',{someData=42})
+simQML.sendEvent(engine, 'myEvent', {someData = 42})
 ```
 
 #### Built-in events
