@@ -43,7 +43,7 @@ Window {
 
     CoppeliaSimBridge {
         id: simBridge
-        onEventReceived: {
+        onEventReceived: (name, data) => {
             if(typeof mainWindow[name] === 'function')
                 mainWindow[name].call(mainWindow, JSON.parse(data))
         }
