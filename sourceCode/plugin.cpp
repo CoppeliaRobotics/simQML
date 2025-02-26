@@ -28,7 +28,6 @@ public:
         Bridge::registerQmlType();
         Geometry::registerQmlType();
 
-        oldSceneID = sim::getInt32Param(sim_intparam_scene_index);
         sim = SIM::getInstance();
     }
 
@@ -50,17 +49,13 @@ public:
         ui = nullptr;
     }
 
-    void onInstanceSwitch(int sceneID)
+    void onInstanceSwitch(int sceneID, int oldSceneID)
     {
-        if(sceneID == oldSceneID) return;
-
         for(auto engine : handles.findByScene(oldSceneID))
             sim->sendEventToQML(engine, "onInstanceSwitch", "false");
 
         for(auto engine : handles.findByScene(sceneID))
             sim->sendEventToQML(engine, "onInstanceSwitch", "true");
-
-        oldSceneID = sceneID;
     }
 
     void onScriptStateAboutToBeDestroyed(int scriptHandle, long long scriptUid)
@@ -149,7 +144,6 @@ public:
     }
 
 private:
-    int oldSceneID = -1;
     UI *ui;
     SIM *sim;
     sim::Handles<QQmlApplicationEngine*> handles{"QML.QQmlApplicationEngine"};
