@@ -28,6 +28,7 @@ public:
         Bridge::registerQmlType();
         Geometry::registerQmlType();
 
+        oldSceneID = sim::getInt32Param(sim_intparam_scene_index);
         sim = SIM::getInstance();
     }
 
