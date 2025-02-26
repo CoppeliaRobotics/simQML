@@ -31,10 +31,12 @@ Window {
     property alias palette: systemPalette
     property bool currentSceneActive: true
     property bool visibleInCurrentScene: true
-    visible: visibleInCurrentScene && (sticky || currentSceneActive)
+    readonly property bool computedVisibility: visibleInCurrentScene && (sticky || currentSceneActive)
     property bool applicationActive: true
     property bool resizable: true
     property bool closeable: true
+
+    onComputedVisibilityChanged: visible = computedVisibility
 
     SystemPalette {
         id: systemPalette
