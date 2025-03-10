@@ -6,6 +6,8 @@
 #include <QByteArray>
 #include <QMap>
 #include <QQmlApplicationEngine>
+#include <QMutex>
+#include <QSet>
 
 #include "Geometry.h"
 
@@ -18,6 +20,10 @@ public:
 
     static SIM * getInstance(QObject *parent = nullptr);
     static void destroyInstance();
+
+    void addEngineInstance(void *inst);
+    void removeEngineInstance(void *inst);
+    bool isEngineInstanceValid(void *inst);
 
 private:
     SIM(QObject *parent = nullptr);
@@ -41,6 +47,10 @@ public slots:
 
 signals:
     void updateMeshData(Geometry *geom, QByteArray vertexData, QByteArray indexData);
+
+private:
+    QSet<void*> engineInstances;
+    QMutex engineInstancesMutex;
 };
 
 #endif // SIM_H_INCLUDED

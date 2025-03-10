@@ -44,6 +44,11 @@ void SIM::destroyInstance()
 
 void SIM::onEventFromQML(QQmlApplicationEngine *engine, QString name, QByteArray data)
 {
+    if(!isEngineInstanceValid(engine))
+    {
+        sim::addLog(sim_verbosity_warnings, "SIM::onEventFromQML: received event from an engine that is already destroyed");
+        return;
+    }
     onEventReceivedRaw_in in;
     onEventReceivedRaw_out out;
     auto handle_v = engine->property("simHandle");
@@ -91,4 +96,30 @@ void SIM::onGetMeshData(int shapeHandle, Geometry *geom)
         emit updateMeshData(geom, vertexData, indexData);
     }
     catch(...) {}
+}
+
+void SIM::addEngineInstance(void *inst)
+{
+    QMutexLocker locker(&engineInstancesMutex);
+    engineInstances.insert(inst);
+
+    QString s = "";
+    for(auto x : engineInstances)
+    {
+        s += s.isEmpty() ? "" : ", ";
+        s += QString("%1").arg(reinterpret_cast<long long>(x));
+    }
+    sim::addLog(sim_verbosity_debug, "SIM::addEngineInstance: instances=[%s]", s.toStdString());
+}
+
+void SIM::removeEngineInstance(void *inst)
+{
+    QMutexLocker locker(&engineInstancesMutex);
+    engineInstances.remove(inst);
+}
+
+bool SIM::isEngineInstanceValid(void *inst)
+{
+    QMutexLocker locker(&engineInstancesMutex);
+    return engineInstances.contains(inst);
 }

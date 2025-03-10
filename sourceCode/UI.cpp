@@ -99,10 +99,20 @@ void UI::onCreateEngine(QQmlApplicationEngine **engine, const QStringList &impor
     });
     sim::addLog(sim_verbosity_debug, "created a new QML engine: 0x%x", e);
     *engine = e;
+
+    {
+        SIM *sim = SIM::getInstance();
+        sim->addEngineInstance(e);
+    }
 }
 
 void UI::onDestroyEngine(QQmlApplicationEngine *engine)
 {
+    {
+        SIM *sim = SIM::getInstance();
+        sim->removeEngineInstance(engine);
+    }
+
     sim::addLog(sim_verbosity_debug, "destroying QML engine 0x%x", engine);
     engine->deleteLater();
 }
