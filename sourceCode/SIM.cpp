@@ -102,14 +102,6 @@ void SIM::addEngineInstance(void *inst)
 {
     QMutexLocker locker(&engineInstancesMutex);
     engineInstances.insert(inst);
-
-    QString s = "";
-    for(auto x : engineInstances)
-    {
-        s += s.isEmpty() ? "" : ", ";
-        s += QString("%1").arg(reinterpret_cast<long long>(x));
-    }
-    sim::addLog(sim_verbosity_debug, "SIM::addEngineInstance: instances=[%s]", s.toStdString());
 }
 
 void SIM::removeEngineInstance(void *inst)
