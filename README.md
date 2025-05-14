@@ -26,6 +26,8 @@ macdeployqt $COPPELIASIM_ROOT_DIR/../.. -qmldir=/path/to/simQML/qml -always-over
 
 ### Usage
 
+[//]: # (plugin_doc_begin)
+
 In order to load QML components, a QML engine must be created:
 
 ```lua
@@ -142,3 +144,5 @@ The `PluginWindow` component already implements the handler for this event, sett
 
 - [The QML Book](https://www.qt.io/product/qt6/qml-book)
 - [QML Coding (style) guide](https://github.com/Furkanzmc/QML-Coding-Guide)
+
+[//]: # (plugin_doc_end)
