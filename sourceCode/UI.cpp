@@ -5,8 +5,6 @@
 #include <QThread>
 //#include <QQuickStyle>
 
-#include <simPlusPlus/Lib.h>
-
 // UI is a singleton
 
 UI *UI::instance = nullptr;

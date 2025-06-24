@@ -3,8 +3,6 @@
 
 #include <QVector3D>
 
-#include <simPlusPlus/Lib.h>
-
 void Geometry::registerQmlType()
 {
     qmlRegisterType<Geometry>("CoppeliaSimPlugin.Geometry", 1, 0, "CoppeliaSimGeometry");

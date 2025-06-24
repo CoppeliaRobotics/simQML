@@ -4,8 +4,6 @@
 
 #include <QThread>
 
-#include <simPlusPlus/Lib.h>
-
 // SIM is a singleton
 
 SIM *SIM::instance = nullptr;

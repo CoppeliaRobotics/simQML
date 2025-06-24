@@ -4,8 +4,6 @@
 #include <QApplication>
 #include <QEvent>
 
-#include <simPlusPlus/Lib.h>
-
 void Bridge::registerQmlType()
 {
     qmlRegisterType<Bridge>("CoppeliaSimPlugin.Bridge", 1, 0, "CoppeliaSimBridge");

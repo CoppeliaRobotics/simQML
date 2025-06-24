@@ -5,6 +5,7 @@
 #include <QString>
 #include <QWidget>
 #include <QQmlApplicationEngine>
+#include <simPlusPlus-2/Lib.h>
 
 #include "Geometry.h"
 

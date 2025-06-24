@@ -2,6 +2,7 @@
 #define COPPELIASIMGEOMETRY_H_INCLUDED
 
 #include <QQuick3DGeometry>
+#include <simPlusPlus/Lib.h>
 
 class Geometry : public QQuick3DGeometry
 {

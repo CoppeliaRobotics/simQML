@@ -8,6 +8,7 @@
 #include <QWidget>
 #include <QQmlApplicationEngine>
 #include <QQuickWindow>
+#include <simPlusPlus-2/Lib.h>
 
 #include "stubs.h"
 

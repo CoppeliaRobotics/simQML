@@ -1,5 +1,5 @@
-#include <simPlusPlus/Plugin.h>
-#include <simPlusPlus/Handles.h>
+#include <simPlusPlus-2/Plugin.h>
+#include <simPlusPlus-2/Handles.h>
 #include "plugin.h"
 #include "stubs.h"
 #include "config.h"
@@ -16,7 +16,7 @@ class Plugin : public sim::Plugin
 public:
     void onInit()
     {
-        if(sim::getBoolParam(sim_boolparam_headless))
+        if(sim::getIntProperty(sim_handle_app, "headlessMode"))
             throw std::runtime_error("doesn't work in headless mode");
 
         if(!registerScriptStuff())
@@ -67,8 +67,8 @@ public:
     void createEngine(createEngine_in *in, createEngine_out *out)
     {
         QStringList importPaths;
-        importPaths << QString::fromStdString(sim::getStringParam(sim_stringparam_resourcesdir) + "/qml");
-        importPaths << QString::fromStdString(sim::getStringParam(sim_stringparam_scene_path));
+        importPaths << QString::fromStdString(sim::getStringProperty(sim_handle_app, "resourcePath") + "/qml");
+        importPaths << QString::fromStdString(sim::getStringProperty(sim_handle_scene, "scenePath"));
         QQmlApplicationEngine *engine;
         sim->createEngine(&engine, importPaths);
         out->handle = handles.add(engine, in->_.scriptID);

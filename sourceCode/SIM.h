@@ -8,6 +8,7 @@
 #include <QQmlApplicationEngine>
 #include <QMutex>
 #include <QSet>
+#include <simPlusPlus-2/Lib.h>
 
 #include "Geometry.h"
 
