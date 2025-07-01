@@ -36,6 +36,26 @@ Window {
     property bool resizable: true
     property bool closeable: true
 
+    Binding on minimumWidth {
+        when: !mainWindow.resizable
+        value: mainWindow.width
+    }
+
+    Binding on maximumWidth {
+        when: !mainWindow.resizable
+        value: mainWindow.width
+    }
+
+    Binding on minimumHeight {
+        when: !mainWindow.resizable
+        value: mainWindow.height
+    }
+
+    Binding on maximumHeight {
+        when: !mainWindow.resizable
+        value: mainWindow.height
+    }
+
     onComputedVisibilityChanged: visible = computedVisibility
 
     SystemPalette {
