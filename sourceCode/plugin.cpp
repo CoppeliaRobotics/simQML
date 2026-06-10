@@ -22,9 +22,6 @@ public:
         if(!registerScriptStuff())
             throw std::runtime_error("failed to register script stuff");
 
-        setExtVersion("QML User-Interface Plugin");
-        setBuildDate(BUILD_DATE);
-
         Bridge::registerQmlType();
         Geometry::registerQmlType();
 

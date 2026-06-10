@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <?xml-stylesheet type="text/xsl" href="callbacks.xsl"?>
 
-<plugin name="simQML" author="federico.ferri.it@gmail.com">
+<plugin name="simQML" info="QML User-Interface Plugin" author="federico.ferri.it@gmail.com">
     <description>API functions for creating QML user interfaces. More info about creating user interfaces in QML can be found at <a href="https://doc.qt.io/qt-5/qtquick-index.html">https://doc.qt.io/</a>.</description>
     <command name="createEngine">
         <description>Create a QML engine.</description>
